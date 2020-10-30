@@ -1,0 +1,34 @@
+if (req.query.field === "All Fields") {
+        console.log("Process");
+        Course.find( { $text: { $search: res.query.input } })
+        .then(courses => res.json(courses))
+        .catch(error => res.status(404).json({success : false}))
+    } else if (req.query.field === "Title/Class Name") {
+        Course.find( { crsTitle: { "$regex": req.query.input, "$options": "i" } } )
+            .then(courses => res.json(courses))
+    } else if (req.query.field === "Class Number") {
+        Course.find( { crs: { "$regex": req.query.input, "$options": "i" } } )
+            .then(courses => res.json(courses))
+    } else if (req.query.field === "Day") {
+        Course.find( { days: { "$regex": req.query.input, "$options": "i" } } )
+            .then(courses => res.json(courses))
+    } else if (req.query.field === "Time") {
+        Course.find( { startTime: { "$regex": req.query.input, "$options": "i" } } )
+            .then(courses => res.json(courses))
+    } else {
+        return res.status(400).json({ msg: req.query.input});
+    }
+
+    courses.forEach((course, index) => {
+                    if (course.days.includes(day) && ((time <= course.minStartTime && course.minStartTime < (time + 60)) ||
+                    (time <= course.minEndTime && course.minEndTime < (time + 60)))) {
+                            cellData.length === 0 ? cellData.push(<span key={`${day}: ${t} ${index}`} style={{color: colorStyles[index], fontWeight: "bold"}}>
+                                    {course.subject} {course.crs} {course.sctn} {course.cmp} 
+                                    <br/>{course.startTime} - {course.endTime}<br/>{course.instructionMode}</span>)
+                                    : cellData.push(<span key={`${day}: ${t} ${index}`} style={{color: colorStyles[index]}}>
+                                    <hr/>{course.subject} {course.crs} {course.sctn} {course.cmp} 
+                                    <br/>{course.startTime} - {course.endTime}<br/>{course.instructionMode}</span>)
+                    }
+                })
+
+
