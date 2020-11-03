@@ -10,6 +10,7 @@ router.get('/', (req, res) => {
         Course.find()
         .then(courses => res.json(courses))
     } else if (req.query.field === "All Fields") {
+        req.query.input = req.query.input.split(/\s+/).join("\|")
         Course.find()
         .or([
             { subject: { "$regex": req.query.input, "$options": "i" } } ,
