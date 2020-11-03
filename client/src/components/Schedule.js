@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Row, Table, Button} from 'reactstrap';
+import { Spinner, Container, Row, Table, Button} from 'reactstrap';
 import { connect } from 'react-redux';
 import { getCourses } from '../actions/scheduleActions';
 import PropTypes from 'prop-types';
@@ -53,6 +53,13 @@ class Schedule extends Component {
     }
 
     render() {
+        if (this.props.course.loading) {
+            return <div className="d-flex justify-content-center">
+                        <strong>Loading...</strong>
+                        <Spinner color="danger"/>
+                    </div>
+        }
+
         return (
             <Container>
                 <Row className="row justify-content-center">

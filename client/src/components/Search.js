@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { getCourses } from '../actions/courseActions';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
-import { withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class Search extends Component {
     // When page is directly loaded through refresh / URL Link
@@ -86,6 +86,9 @@ class Search extends Component {
                         <Col><Button>Find</Button></Col>     
                     </Row>
                 </Form>
+                <div style={{textAlign: "center"}}>
+                <Link to={`/schedule`}><Button color="primary">Generate Schedule</Button></Link>
+                </div>
                 <Row>
                     {courses.length !== 0 && <Col><h5>Search Results of {indexOfFirstCourse + 1} - {currentCourses.length + indexOfFirstCourse} of {courses.length}</h5></Col>}
                 </Row>
@@ -108,4 +111,4 @@ const mapStatesToProps = (state) => ({
     course : state.course
 })
 
-export default withRouter(connect(mapStatesToProps, {getCourses}) (Search));
+export default connect(mapStatesToProps, {getCourses}) (Search);
