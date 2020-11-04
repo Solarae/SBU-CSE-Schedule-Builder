@@ -6,11 +6,11 @@ const Course = require('../../models/Course')
 //@route    GET api/courses
 //@desc     Get All Courses Based on Filter
 router.get('/', (req, res) => {
+    req.query.input = req.query.input === "" ? "" : req.query.input.split(/\s+/).join("\|");
     if (req.query.input === "") {
         Course.find()
         .then(courses => res.json(courses))
     } else if (req.query.field === "All Fields") {
-        req.query.input = req.query.input.split(/\s+/).join("\|")
         Course.find()
         .or([
             { subject: { "$regex": req.query.input, "$options": "i" } } ,
