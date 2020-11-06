@@ -38,7 +38,8 @@ class Schedule extends Component {
                     const minEndTimeBound = Math.floor(course.minEndTime / 60) * 60;
                     if (course.days.includes(day) && (minStartTimeBound <= time && time <= minEndTimeBound)) {
                             cellData.length === 0 ? cellData.push(<span key={`${day}: ${t} ${index}`} style={{color: colorStyles[index], fontWeight: "bold"}}>
-                                    {course.subject} {course.crs} {course.sctn} {course.cmp} 
+                                    {course.subject} {course.crs} {course.sctn} {course.cmp}
+                                    <br/>{course.crsTitle}
                                     <br/>{course.startTime} - {course.endTime}<br/>{course.instructionMode}</span>)
                                     : cellData.push(<span key={`${day}: ${t} ${index}`} style={{color: colorStyles[index], fontWeight: "bold"}}>
                                     <hr/>{course.subject} {course.crs} {course.sctn} {course.cmp} 
